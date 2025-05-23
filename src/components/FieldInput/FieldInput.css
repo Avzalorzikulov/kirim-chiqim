@@ -1,0 +1,16 @@
+input:invalid[focused = "true"] + p{
+    display: block;
+    font-size: 11px;
+    text-align: left;
+    width: 300px;
+    animation: shake 0.3s ease-in-out;
+}
+input:invalid[focused = "true"] {
+border: 1px solid #f00;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-4px); }
+  }
