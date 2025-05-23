@@ -40,7 +40,7 @@ const Incomes = () => {
       });
 
       if (response.data) {
-        await fetchIncomes(); // reload qilinadi: yangi ro‘yxat olib kelinadi
+        await fetchIncomes();
       }
 
       toast.success("Income added successfully");
@@ -59,18 +59,18 @@ const Incomes = () => {
   };
 
   const handleDelete = (id) => {
-    setIncomes(incomes.filter((income) => income._id !== id)); // Remove from local state
+    setIncomes(incomes.filter((income) => income._id !== id));
   };
 
   return (
-    <div className="px-3">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+    <div className="px-4 sm:px-6 py-6">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
         Incomes
       </h2>
 
       <form
         onSubmit={handleSubmit}
-        className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-6"
+        className="w-full max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg space-y-4"
       >
         {["title", "amount", "category", "description", "date"].map((field) => (
           <div key={field}>
@@ -90,18 +90,19 @@ const Incomes = () => {
             />
           </div>
         ))}
-        <div className="text-center">
+
+        <div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
-            {loading ? "Adding..." : "Add Expense"}
+            {loading ? "Adding..." : "Add Income"}
           </button>
         </div>
       </form>
 
-      <ul className="mt-6 px-5">
+      <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {incomes.map((element) => (
           <TransactionItem
             key={element._id}

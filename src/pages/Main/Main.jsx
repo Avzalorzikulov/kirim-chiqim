@@ -15,7 +15,7 @@ const Main = () => {
   const loader = useLoaderData();
   const { incomes, expenses } = loader;
 
-  // Tranzaksiyalarni birlashtirish
+  // Combine incomes and expenses
   const combinedData = [...incomes, ...expenses]
     .sort((a, b) => new Date(a.date) - new Date(b.date))
     .map((item) => ({
@@ -26,18 +26,18 @@ const Main = () => {
       expense: item.type === 'expense' ? item.amount : 0,
     }));
 
-  // Oxirgi 3 ta tranzaksiyani olish
+  // Last 3 transactions
   const lastThreeTransactions = [...combinedData]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3);
 
-  // Sana formatlash funksiyasi (XAxis va Tooltip uchun)
+  // Date formatting for XAxis and Tooltip
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-GB');
   };
 
-  // Tooltipni sozlash
+  // Custom Tooltip for BarChart
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       const date = new Date(label).toLocaleString('en-GB', {
@@ -59,8 +59,8 @@ const Main = () => {
     <div className="bg-gray-100 flex">
       <main className="flex-1 flex flex-col">
         <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
-          <div className="bg-white shadow-md rounded-lg w-full max-w-4xl p-6">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+          <div className="bg-white shadow-md rounded-lg w-full max-w-5xl p-6">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 text-center">
               Income vs Expense Diagram
             </h1>
             <div className="w-full h-96 mb-6">
@@ -72,10 +72,10 @@ const Main = () => {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
                     dataKey="date"
-                    tickFormatter={formatDate} // Sana formatlash
+                    tickFormatter={formatDate} // Format dates
                   />
                   <YAxis />
-                  <Tooltip content={<CustomTooltip />} /> {/* Yangi Tooltip */}
+                  <Tooltip content={<CustomTooltip />} />
                   <Legend />
                   <Bar dataKey="expense" fill="#ff4747" name="Expense" />
                   <Bar dataKey="income" fill="#4ade80" name="Income" />
@@ -83,9 +83,9 @@ const Main = () => {
               </ResponsiveContainer>
             </div>
 
-            {/* Oxirgi 3 ta tranzaksiya */}
+            {/* Last 3 Transactions */}
             <div className="bg-gray-50 p-4 rounded shadow-md">
-              <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 text-center">
                 Last 3 Transactions
               </h2>
               <ul className="space-y-4">
